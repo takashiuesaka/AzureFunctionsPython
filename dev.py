@@ -12,7 +12,7 @@ from pathlib import Path
 def run_command(cmd, check=True):
     """Run a shell command and return the result"""
     print(f"Running: {cmd}")
-    result = subprocess.run(cmd, shell=True, check=check)
+    result = subprocess.run(cmd, shell=True, check=check, executable='/bin/bash')
     return result
 
 
