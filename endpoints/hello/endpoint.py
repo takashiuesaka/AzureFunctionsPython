@@ -11,6 +11,9 @@ from typing import Dict, Any
 from shared.response_helpers import create_json_response
 from shared.validators import validate_request_data
 
+# Create blueprint for hello endpoint
+bp = func.Blueprint()
+
 
 def hello_handler(req: func.HttpRequest) -> func.HttpResponse:
     """
@@ -60,3 +63,11 @@ def hello_handler(req: func.HttpRequest) -> func.HttpResponse:
             {"error": "Internal server error"}, 
             status_code=500
         )
+
+
+# Register HTTP trigger function with decorators
+@bp.function_name(name="hello")
+@bp.route(route="hello", methods=["GET", "POST"])
+def hello(req: func.HttpRequest) -> func.HttpResponse:
+    """Azure Functions HTTP trigger entry point."""
+    return hello_handler(req)
